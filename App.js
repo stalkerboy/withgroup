@@ -12,9 +12,12 @@ import {Routes} from './src/Routes';
 
 const App = ({}) => {
   return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+    // <AuthProvider>
+    //   <Routes />
+    // </AuthProvider>
+    <Provider store={store}>
+      <Counter />
+    </Provider>
   );
 };
 

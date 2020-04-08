@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Text, TouchableOpacity} from 'react-native';
+import {Button, TouchableOpacity} from 'react-native';
 import {AuthContext} from '../../../AuthProvider';
-import {addProductRoutes} from '../SharedScreen/addProductRoutes';
+import {EditProductStack, ProductStack} from '../SharedStack';
 import {Feed} from './Feed';
 
 const Stack = createStackNavigator();
@@ -11,18 +11,19 @@ export const HomeStack = ({}) => {
   const {logout} = useContext(AuthContext);
   return (
     <Stack.Navigator initialRouteName="Feed">
-      {addProductRoutes(Stack)}
+      {EditProductStack(Stack)}
+      {ProductStack(Stack)}
       <Stack.Screen
         name="Feed"
         options={{
           headerRight: () => {
             return (
-              <TouchableOpacity
+              <Button
                 onPress={() => {
                   logout();
-                }}>
-                <Text>LOGOUT</Text>
-              </TouchableOpacity>
+                }}
+                title="LOGOUT"
+              />
             );
           },
         }}
