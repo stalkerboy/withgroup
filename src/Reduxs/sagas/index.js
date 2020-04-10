@@ -1,10 +1,6 @@
-// Imports: Dependencies
 import {all, fork} from 'redux-saga/effects';
+import user from './user';
 
-// Imports: Redux Sagas
-import {watchIncreaseCounter, watchDecreaseCounter} from './counterSaga';
-
-// Redux Saga: Root Saga
-export function* rootSaga() {
-  yield all([fork(watchIncreaseCounter), fork(watchDecreaseCounter)]);
+export default function* rootSaga() {
+  yield all([fork(user)]);
 }

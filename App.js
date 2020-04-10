@@ -7,8 +7,9 @@
  */
 
 import React from 'react';
-import {AuthProvider} from './src/AuthProvider';
+import {Provider} from 'react-redux';
 import {Routes} from './src/Routes';
+import {store} from './src/Reduxs/store';
 
 const App = ({}) => {
   return (
@@ -16,7 +17,7 @@ const App = ({}) => {
     //   <Routes />
     // </AuthProvider>
     <Provider store={store}>
-      <Counter />
+      <Routes />
     </Provider>
   );
 };
