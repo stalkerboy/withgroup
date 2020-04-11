@@ -8,21 +8,18 @@ import {LOG_IN_REQUEST} from '../../Reduxs/constants/user';
 export function Login({navigation}) {
   const [id, onChangeId] = useState('');
   const [password, onChangePassword] = useState('');
-  const {isLoggingIn, logInErrorReason} = useSelector((state) => state.user);
+  const {token, logInErrorReason} = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
 
-  const onClickLogin = useCallback(
-    (e) => {
-      dispatch({
-        type: LOG_IN_REQUEST,
-        data: {
-          userId: 'fakerid',
-          password,
-        },
-      });
-    },
-    [id, password],
-  );
+  const onClickLogin = useCallback(() => {
+    dispatch({
+      type: 'LOGIN',
+      data: {
+        userId: 'fakerid',
+        password,
+      },
+    });
+  }, [id, password]);
 
   return (
     <Center>
@@ -33,7 +30,7 @@ export function Login({navigation}) {
         onPress={() => {
           onClickLogin();
         }}
-        loading={isLoggingIn}
+        loading={!!token}
       />
       <Button
         title="go to register"

@@ -1,14 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Button, TouchableOpacity} from 'react-native';
-// import {AuthContext} from '../../../AuthProvider';
 import {EditProductStack, ProductStack} from '../SharedStack';
 import {Feed} from './Feed';
+import {useDispatch} from 'react-redux';
 
 const Stack = createStackNavigator();
 
 export const HomeStack = ({}) => {
-  // const {logout} = useContext(AuthContext);
+  const dispatch = useDispatch();
   return (
     <Stack.Navigator initialRouteName="Feed">
       {EditProductStack(Stack)}
@@ -20,7 +20,9 @@ export const HomeStack = ({}) => {
             return (
               <Button
                 onPress={() => {
-                  // logout();
+                  dispatch({
+                    type: 'LOGOUT',
+                  });
                 }}
                 title="LOGOUT"
               />

@@ -8,21 +8,13 @@ import {
   View,
   Button,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-
 import {Center} from './Component/Center';
 import {AppTabs} from './Container/AppTabs';
 import {AuthStack} from './Container/AuthStack';
 import {connect} from 'react-redux';
 import {useDispatch, useSelector} from 'react-redux';
 
-const Routes = ({
-  counter,
-  loggedIn,
-  reduxIncreaseCounter,
-  reduxDecreaseCounter,
-  reduxLogin,
-}) => {
+const Routes = ({token}) => {
   // const {user, login} = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
@@ -50,34 +42,30 @@ const Routes = ({
   // }
 
   return (
-    // <NavigationContainer>
-    //   {user ? <AppTabs /> : <AuthStack />}
-    // </NavigationContainer>
-    <Center>
-      <View>
-        <Text>Logged In: </Text>
-        <Text>{`${loggedIn}`}</Text>
+    <NavigationContainer>
+      {token ? <AppTabs /> : <AuthStack />}
+    </NavigationContainer>
+    // <Center>
+    //   <View>
+    //     <Text>Logged In: </Text>
+    //     <Text>{`${token}`}</Text>
 
-        <Button
-          title="Login"
-          onPress={
-            loggedIn === false
-              ? () => reduxLogin(true)
-              : () => reduxLogin(false)
-          }
-        />
-      </View>
+    //     <Button
+    //       title="Login"
+    //       onPress={token ? () => reduxLogin(true) : () => reduxLogin(false)}
+    //     />
+    //   </View>
 
-      <TouchableOpacity onPress={reduxIncreaseCounter}>
-        <Text>+</Text>
-      </TouchableOpacity>
+    //   <TouchableOpacity onPress={reduxIncreaseCounter}>
+    //     <Text>+</Text>
+    //   </TouchableOpacity>
 
-      <Text>{counter}</Text>
+    //   <Text>{counter}</Text>
 
-      <TouchableOpacity onPress={reduxDecreaseCounter}>
-        <Text>-</Text>
-      </TouchableOpacity>
-    </Center>
+    //   <TouchableOpacity onPress={reduxDecreaseCounter}>
+    //     <Text>-</Text>
+    //   </TouchableOpacity>
+    // </Center>
   );
 };
 
@@ -88,8 +76,7 @@ const mapStateToProps = (state) => {
 
   // Redux Store --> Component
   return {
-    counter: state.counterReducer.counter,
-    loggedIn: state.authReducer.loggedIn,
+    token: state.authReducer.token,
   };
 };
 
@@ -109,14 +96,8 @@ const mapDispatchToProps = (dispatch) => {
         type: 'DECREASE_COUNTER',
         value: 1,
       }),
-    // Login
-    reduxLogin: (trueFalse) =>
-      dispatch({
-        type: 'LOGIN',
-        value: trueFalse,
-      }),
   };
 };
 
 // Exports
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default connect(mapStateToProps, null)(Routes);

@@ -1,20 +1,36 @@
 // Initial State
 const initialState = {
-  loggedIn: false,
+  token: '',
+  fetchingLogin: false,
+  // user: '',
+  error: null,
 };
 
 // Reducers (Modifies The State And Returns A New State)
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     // Login
-    case 'LOGIN_ASYNC': {
+    case 'LOGIN_ASYNC_STARTED': {
+      return {...state, fetchingLogin: true};
+    }
+    case 'LOGIN_ASYNC_REJECTED': {
+      return {...state, fetchingLogin: false, error: action.payload};
+    }
+    case 'LOGIN_ASYNC_FULFILLED': {
       return {
-        // State
         ...state,
-        // Redux Store
-        loggedIn: action.value,
+        fetchingLogin: false,
+        token: action.payload.data.jwt.accessToken,
+        error: null,
       };
     }
+    case 'LOGOUT': {
+      return {
+        ...state,
+        token: null,
+      };
+    }
+
     // Default
     default: {
       return state;

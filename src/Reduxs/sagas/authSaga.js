@@ -3,19 +3,19 @@ import {delay, takeEvery, takeLatest, put} from 'redux-saga/effects';
 
 // Increase LOGIN Async
 function* loginAsync(action) {
-  try {
-    // Delay 4 Seconds
-    yield delay(4000);
-    console.log('authsaga action.value', action.value);
+  console.log('authsaga action.', action);
 
-    // Dispatch Action To Redux Store
-    yield put({
-      type: 'LOGIN_ASYNC',
-      value: action.value,
-    });
+  yield put({type: 'LOGIN_ASYNC_STARTED'});
+  yield delay(1000);
+
+  try {
+    //test
+    const loginResponse = {data: {jwt: {accessToken: '12313123'}}};
+    // const loginResponse = yield call(login);
+
+    yield put({type: 'LOGIN_ASYNC_FULFILLED', payload: loginResponse});
   } catch (error) {
-    // CHANGE LATER
-    console.log(error);
+    yield put({type: 'LOGIN_ASYNC_REJECTED', payload: error});
   }
 }
 
@@ -24,3 +24,10 @@ export function* watchLogin() {
   // Take Last Action
   yield takeLatest('LOGIN', loginAsync);
 }
+
+const login = (payload) => {
+  return axios.post('http://52.79.57.173/signin', {
+    email: payload.email,
+    password: payload.password,
+  });
+};
