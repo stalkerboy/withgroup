@@ -8,7 +8,7 @@
 
 import React from 'react';
 import {Provider} from 'react-redux';
-import {Routes} from './src/Routes';
+import Routes from './src/Routes';
 import {store} from './src/Reduxs/store';
 
 const App = ({}) => {
