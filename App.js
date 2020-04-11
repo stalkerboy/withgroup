@@ -8,8 +8,9 @@
 
 import React from 'react';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/es/integration/react';
 import Routes from './src/Routes';
-import {store} from './src/Reduxs/store';
+import {store, persistor} from './src/Reduxs/store';
 
 const App = ({}) => {
   return (
@@ -17,7 +18,9 @@ const App = ({}) => {
     //   <Routes />
     // </AuthProvider>
     <Provider store={store}>
-      <Routes />
+      <PersistGate loading={null} persistor={persistor}>
+        <Routes />
+      </PersistGate>
     </Provider>
   );
 };

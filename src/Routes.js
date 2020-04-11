@@ -1,18 +1,29 @@
 import React, {useState, useEffect, useContext} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {ActivityIndicator, Text, TouchableOpacity} from 'react-native';
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  View,
+  Button,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {Center} from './Component/Center';
-import {AuthContext} from './AuthProvider';
 import {AppTabs} from './Container/AppTabs';
 import {AuthStack} from './Container/AuthStack';
 import {connect} from 'react-redux';
 import {useDispatch, useSelector} from 'react-redux';
 
-const Routes = ({counter, reduxIncreaseCounter, reduxDecreaseCounter}) => {
-  const {user, login} = useContext(AuthContext);
+const Routes = ({
+  counter,
+  loggedIn,
+  reduxIncreaseCounter,
+  reduxDecreaseCounter,
+  reduxLogin,
+}) => {
+  // const {user, login} = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
   // useEffect(() => {
@@ -30,19 +41,33 @@ const Routes = ({counter, reduxIncreaseCounter, reduxDecreaseCounter}) => {
   //     });
   // }, []);
 
-  if (loading) {
-    return (
-      <Center>
-        <ActivityIndicator size="large" />
-      </Center>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <Center>
+  //       <ActivityIndicator size="large" />
+  //     </Center>
+  //   );
+  // }
 
   return (
     // <NavigationContainer>
     //   {user ? <AppTabs /> : <AuthStack />}
     // </NavigationContainer>
     <Center>
+      <View>
+        <Text>Logged In: </Text>
+        <Text>{`${loggedIn}`}</Text>
+
+        <Button
+          title="Login"
+          onPress={
+            loggedIn === false
+              ? () => reduxLogin(true)
+              : () => reduxLogin(false)
+          }
+        />
+      </View>
+
       <TouchableOpacity onPress={reduxIncreaseCounter}>
         <Text>+</Text>
       </TouchableOpacity>
@@ -58,13 +83,13 @@ const Routes = ({counter, reduxIncreaseCounter, reduxDecreaseCounter}) => {
 
 // Map State To Props (Redux Store Passes State To Component)
 const mapStateToProps = (state) => {
-  console.log('State:');
-  console.log(state);
+  // console.log('State:');
+  // console.log(state);
 
   // Redux Store --> Component
   return {
-    // counter: state.counterReducer.counter,
-    counter: state.counter.counter,
+    counter: state.counterReducer.counter,
+    loggedIn: state.authReducer.loggedIn,
   };
 };
 
@@ -83,6 +108,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: 'DECREASE_COUNTER',
         value: 1,
+      }),
+    // Login
+    reduxLogin: (trueFalse) =>
+      dispatch({
+        type: 'LOGIN',
+        value: trueFalse,
       }),
   };
 };
