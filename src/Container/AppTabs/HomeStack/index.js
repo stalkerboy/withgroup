@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Button, TouchableOpacity} from 'react-native';
-import {EditProductStack, ProductStack} from '../SharedStack';
+import {EditProductStack} from '../../Share/Stack/EditProductStack';
+import {ProductStack} from '../../Share/Stack/ProductStack';
 import {Feed} from './Feed';
 import {useDispatch} from 'react-redux';
 

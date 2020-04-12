@@ -1,5 +1,6 @@
 // Imports: Dependencies
-import {delay, takeEvery, takeLatest, put} from 'redux-saga/effects';
+import {delay, takeEvery, takeLatest, put, call} from 'redux-saga/effects';
+import axios from 'axios';
 
 // Increase LOGIN Async
 function* loginAsync(action) {
@@ -9,9 +10,7 @@ function* loginAsync(action) {
   yield delay(1000);
 
   try {
-    //test
-    const loginResponse = {data: {jwt: {accessToken: '12313123'}}};
-    // const loginResponse = yield call(login);
+    const loginResponse = yield call(login.bind(this, action.data));
 
     yield put({type: 'LOGIN_ASYNC_FULFILLED', payload: loginResponse});
   } catch (error) {
@@ -25,9 +24,18 @@ export function* watchLogin() {
   yield takeLatest('LOGIN', loginAsync);
 }
 
-const login = (payload) => {
-  return axios.post('http://52.79.57.173/signin', {
-    email: payload.email,
-    password: payload.password,
-  });
+const login = payload => {
+  console.log('authSaga payload: ', payload);
+
+  //test
+  return {data: {jwt: {accessToken: '12313123'}}};
+  // return axios
+  //   .post('http://localhost', {
+  //     email: payload.email,
+  //     password: payload.password,
+  //   })
+  //   .then(response => {
+  //     console.log(response);
+  //     return response.data;
+  //   });
 };

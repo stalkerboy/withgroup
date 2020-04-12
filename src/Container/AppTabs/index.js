@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeStack} from './HomeStack';
 import {SearchStack} from './SearchStack';
 import {Text} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const Tabs = createBottomTabNavigator();
 
@@ -17,9 +18,9 @@ export const AppTabs = ({}) => {
 
           if (route.name === 'Home') {
             iconName = 'home';
-            return <Text name={'home'} size={size} color={color} />;
+            return <Icon name="home" size={size} color={color} />;
           } else if (route.name === 'Search') {
-            return <Text name={'search'} size={size} color={color} />;
+            return <Icon name="search1" size={size} color={color} title="" />;
           }
 
           // You can return any component that you like here!
@@ -29,6 +30,7 @@ export const AppTabs = ({}) => {
       tabBarOptions={{
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
+        // showLabel: false,
       }}>
       <Tabs.Screen name="Home" component={HomeStack} />
       <Tabs.Screen name="Search" component={SearchStack} />
