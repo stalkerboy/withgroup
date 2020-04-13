@@ -20,7 +20,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchingLogin: false,
-        token: action.payload.data.jwt.accessToken,
+        token: action.payload.jwt.accessToken,
         error: null,
       };
     }

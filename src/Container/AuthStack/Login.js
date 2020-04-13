@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 export function Login({navigation}) {
   const [email, setEmail] = useState('qwe');
   const [password, setPassword] = useState('123');
-  const {fetchingLogin} = useSelector(state => state.authReducer);
+  const {fetchingLogin} = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
 
   const onClickLogin = useCallback(() => {
@@ -124,23 +124,5 @@ export function Login({navigation}) {
         </Text>
       </TouchableOpacity>
     </View>
-
-    // <Center>
-    //   <Text>I am a login screen</Text>
-    //   <Text>{Config.API_HOST}</Text>
-    //   <Button
-    //     title="log me in"
-    //     onPress={() => {
-    //       onClickLogin();
-    //     }}
-    //     loading={!!token}
-    //   />
-    //   <Button
-    //     title="go to register"
-    //     onPress={() => {
-    //       navigation.navigate('Register');
-    //     }}
-    //   />
-    // </Center>
   );
 }

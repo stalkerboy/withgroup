@@ -5560,10 +5560,10 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-native-config@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.0.0.tgz#fada8f79996db1eadcee9e221afd713c91f677e5"
-  integrity sha512-ZydFNkGgjPCgJ4nDDGxuoMSsz4HACJH6TyYEDeefnzGW3XS/HXxdiW8SOaOD8B0WACQJHM028ypnwhexJ7hhsA==
+react-native-floating-action@^1.20.0:
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/react-native-floating-action/-/react-native-floating-action-1.20.0.tgz#65a975669e30b16900e095ec1a2448e4ce377869"
+  integrity sha512-FQi4HkfPBXIyb/cT300v54j1FChZ78K2QVlzY4TKlUDIimRmKJ9P5ie79NBvtKv9wTXXT6+Y0XVXFfOX4zuIwQ==
 
 react-native-gesture-handler@^1.6.1:
   version "1.6.1"

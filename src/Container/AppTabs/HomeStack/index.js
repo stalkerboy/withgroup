@@ -4,6 +4,7 @@ import {Button, TouchableOpacity} from 'react-native';
 import {EditProductStack} from '../../Share/Stack/EditProductStack';
 import {ProductStack} from '../../Share/Stack/ProductStack';
 import {Feed} from './Feed';
+import {CreateStudy} from './CreateStudy';
 import {useDispatch} from 'react-redux';
 
 const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ export const HomeStack = ({}) => {
         }}
         component={Feed}
       />
+      <Stack.Screen name="CreateStudy" component={CreateStudy} />
     </Stack.Navigator>
   );
 };

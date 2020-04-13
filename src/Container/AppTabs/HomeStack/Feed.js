@@ -2,6 +2,7 @@ import React from 'react';
 import {Center} from '../../../Component/Center';
 import faker from 'faker';
 import {FlatList, Button} from 'react-native';
+import {FloatingAction} from 'react-native-floating-action';
 
 export function Feed({navigation}) {
   return (
@@ -22,6 +23,20 @@ export function Feed({navigation}) {
         }}
         keyExtractor={(product, idx) => product + idx}
         data={Array.from(Array(50), () => faker.commerce.product())}
+      />
+      <FloatingAction
+        actions={[
+          {
+            text: 'Accessibility',
+            icon: require('withgroup/assets/images/add.png'),
+            name: 'bt_accessibility',
+            position: 1,
+          },
+        ]}
+        overrideWithAction
+        onPressItem={(name) => {
+          navigation.navigate('CreateStudy');
+        }}
       />
     </Center>
   );
