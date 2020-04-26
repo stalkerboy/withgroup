@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
 });
 
 export function Login({navigation}) {
-  const [email, setEmail] = useState('qwe');
-  const [password, setPassword] = useState('123');
+  const [email, setEmail] = useState('aaa');
+  const [password, setPassword] = useState('1');
   const {fetchingLogin} = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
 

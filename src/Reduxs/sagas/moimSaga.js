@@ -11,6 +11,7 @@ function* getMoimListAsync(action) {
   try {
     const getMoimListResponse = yield call(getMoimList.bind(this, action.data));
 
+   
     yield put({
       type: 'GETMOIM_LIST_ASYNC_FULFILLED',
       payload: getMoimListResponse,
@@ -29,27 +30,24 @@ export function* watchGetMoimList() {
 const getMoimList = async ({page}) => {
   //test
   //   return {data: {jwt: {accessToken: '12313123'}}};
-  console.log('API.MOIMLISTVIEW:' + API.MOIMLISTVIEW);
+  
   await axios
     .get(API.MOIMLISTVIEW, {
       page,
     })
     .then((res) => {
-      console.log('--------------------');
-      //   console.log('res', res.data);
-      //   console.log('page' + page);
-      console.log('--------------------');
+     
       data = {
         moimList: res.data.moimList.content,
         page: page ? page : 1,
         pageTotal: res.data.moimList.totalPages,
       };
-      return data;
+     
     })
     .catch((error) => {
       console.log('error' + error);
     });
-
+    return data;
   //   .post(API.LOGIN, {
   //       email: payload.email,
   //       password: payload.password,
