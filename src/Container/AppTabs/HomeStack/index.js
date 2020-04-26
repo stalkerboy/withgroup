@@ -6,15 +6,18 @@ import {ProductStack} from '../../Share/Stack/ProductStack';
 import {Feed} from './Feed';
 import {CreateStudy} from './CreateStudy';
 import {useDispatch} from 'react-redux';
+import {MoimMain} from './MoimMain';
 
 const Stack = createStackNavigator();
 
 export const HomeStack = ({}) => {
   const dispatch = useDispatch();
   return (
-    <Stack.Navigator initialRouteName="Feed">
+    <Stack.Navigator initialRouteName="MoimMain">
       {EditProductStack(Stack)}
       {ProductStack(Stack)}
+      <Stack.Screen name="MoimMain" component={MoimMain} />
+
       <Stack.Screen
         name="Feed"
         options={{
