@@ -18,9 +18,8 @@ const moimReducer = (state = initialState, action) => {
     }
     case 'GETMOIM_LIST_ASYNC_FULFILLED': {
       console.log('GETMOIM_LIST_ASYNC_FULFILLED');
-      console.log('state.moimList: ', state.moimList);
-      // console.log('payload: ', state.payload);
-      console.log('action: ', action);
+      console.log('action: ', action.payload.moimList);
+      console.log('~~~~~~~~~~~~~~~~~~~~')
       return {
         ...state,
         moimList: action.payload,
