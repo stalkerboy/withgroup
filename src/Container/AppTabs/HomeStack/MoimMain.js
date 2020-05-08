@@ -26,26 +26,29 @@ export function MoimMain({navigation}) {
 
   return (
    
-    
-      
-      
                   <FlatList
                             // data={this.state.data}
                             data={moimList.moimList}
                             renderItem={({item}) =>  
-                                    <View style={{flexDirection:'row',flex:1}}>
+                                    <View style={{flexDirection:'row',flex:1}}> 
                                         <Image 
-                                        source={item.imageName === null ? require('../../../../assets/images/logo.png')  : {uri:'http://52.79.57.173/getMoimImage/'+item.imageName+'.'+item.imageExtension}} 
+                                        source={item.imageName === null ? require('../../../../assets/images/list.png')  : {uri:'http://52.79.57.173/getMoimImage/'+item.imageName+'.'+item.imageExtension}} 
                                         style={{width: 100, height: 75}} 
                                         /> 
                                         <View style={styles.textMoim}>
-                                            <Text style={{fontSize:15, fontWeight:'bold',marginTop:1}}>
+                                            <Text style={{fontSize:18
+                                                         ,fontWeight:'bold'
+                                                         ,marginTop:1
+                                                         ,fontFamily: "Noto Sans KR"
+                                                         }}>
                                                 {item.title}
                                             </Text> 
-                                            <Text>
+                                            <Text style={{fontSize:15
+                                                         ,fontFamily: "Noto Sans KR"
+                                                         ,fontWeight: '500'}}>
                                                 {item.intro}
                                             </Text>
-                                            <Text>
+                                            <Text style={{fontWeight: '200'}}>
                                                 {item.people.name}
                                             </Text>
                                         </View>
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
   },
   textMoim:{
       flexDirection:'column',
-      marginLeft:5
+      marginLeft:20
   },
   peopleNum:{
       margin:20,
