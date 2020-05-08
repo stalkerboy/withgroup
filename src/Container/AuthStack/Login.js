@@ -78,7 +78,7 @@ export function Login({navigation}) {
       <Center>
         <ActivityIndicator size="large" />
       </Center>
-    );
+    ); 
   }
 
   return (
