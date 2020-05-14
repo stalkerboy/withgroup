@@ -17,12 +17,12 @@ const authReducer = (state = initialState, action) => {
       return {...state, fetchingLogin: false, error: action.payload};
     }
     case 'LOGIN_ASYNC_FULFILLED': {
-      console.log("Test!@#!@#")
-     
+      console.log('action.payload');
+      console.log(action);
       return {
         ...state,
         fetchingLogin: false,
-        token: action.payload.data.jwt.accessToken,
+        token: action.payload.jwt.accessToken,
         error: null,
       };
     }

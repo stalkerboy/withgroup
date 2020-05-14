@@ -4,6 +4,7 @@ const initialState = {
   page: 1,
   pageTotal: null,
   error: null,
+  moimDetail: null,
 };
 
 // Reducers (Modifies The State And Returns A New State)
@@ -17,13 +18,24 @@ const moimReducer = (state = initialState, action) => {
       return {...state, fetchingMoimList: false, error: action.payload};
     }
     case 'GETMOIM_LIST_ASYNC_FULFILLED': {
-      console.log('GETMOIM_LIST_ASYNC_FULFILLED');
-      console.log('action: ', action.payload.moimList);
-      console.log('~~~~~~~~~~~~~~~~~~~~')
       return {
         ...state,
-        moimList: action.payload,
+        moimList: action.payload.moimList,
         fetchingMoimList: false,
+        error: null,
+      };
+    }
+    case 'GETMOIM_DETAIL_START': {
+      return {...state, fetchingMoimDetail: true};
+    }
+    case 'GETMOIM_DETAIL_ASYNC_REJECTED': {
+      return {...state, fetchingMoimDetail: false, error: action.payload};
+    }
+    case 'GETMOIM_DETAIL_ASYNC_FULFILLED': {
+      return {
+        ...state,
+        moimDetail: action.payload,
+        fetchingMoimDetail: false,
         error: null,
       };
     }
