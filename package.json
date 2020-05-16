@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.7",
-    "@react-native-community/picker": "^1.4.0",
+    "@react-native-community/picker": "^1.5.0",
     "@react-navigation/bottom-tabs": "^5.2.5",
     "@react-navigation/drawer": "^5.4.0",
     "@react-navigation/material-top-tabs": "^5.1.7",
@@ -29,6 +29,8 @@
     "react-native-floating-action": "^1.20.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-picker": "^2.3.1",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-picker-select": "^7.0.0",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",

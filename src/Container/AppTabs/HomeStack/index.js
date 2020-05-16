@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button, TouchableOpacity, Image} from 'react-native';
+import {Button, TouchableOpacity, Image,View,Text,useWindowDimensions} from 'react-native';
 import {EditProductStack} from '../../Share/Stack/EditProductStack';
 import {ProductStack} from '../../Share/Stack/ProductStack';
 import {Feed} from './Feed';
@@ -8,9 +8,43 @@ import {CreateStudy} from './CreateStudy';
 import {useDispatch} from 'react-redux';
 import {MoimMain} from './MoimMain';
 import {MoimDetail} from './MoimDetail';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
+function MyDrawer() {
+  const dimensions = useWindowDimensions();
+
+  const isLargeScreen = dimensions.width >= 768;
+
+  return (
+    <Drawer.Navigator
+      openByDefault
+      drawerType={isLargeScreen ? 'permanent' : 'back'}
+      drawerStyle={isLargeScreen ? null : { width: '100%' }}
+      overlayColor="transparent"
+    >
+      {/* Screens */}
+    </Drawer.Navigator>
+  );
+}
+function LogoTitle() {
+  return (
+    <View style={{flex: 1}}>
+    <Text style={[{ color: "#03D2B4",fontSize: 30,fontWeight: "bold",margin: 100 }]}>Fruit</Text>
+    </View>
+  ); 
+}
+function HeaderR() {
+  return ( <Image  source={require('../../../../assets/images/header/Vector.png')} style={{height:20, width:30,resizeMode:'contain',margin: 20}} /> );
+ 
+}
+function HeaderL(){
+  return(<Image source={require('../../../../assets/images/header/profileimg.png')} style={{height:20, width: 30,justifyContent:'center', alignItems:'center',  resizeMode:'contain',margin: 20}}/> );
+  
+}
 export const HomeStack = ({}) => {
   const dispatch = useDispatch();
   return (
@@ -21,9 +55,9 @@ export const HomeStack = ({}) => {
         name="MoimMain"
         component={MoimMain}
         options={{
-          title: 'Fruit',
-          headerTintColor: '#03D2B4',
-          headerRightImage: (props) => <headerRightImage {...props} />,
+          headerTitle: props => <LogoTitle {...props}/>,
+          headerRight: ()=> <HeaderR/>,
+          headerLeft: ()=> <HeaderL />
         }}
       />
 
@@ -50,11 +84,3 @@ export const HomeStack = ({}) => {
     </Stack.Navigator>
   );
 };
-function headerRightImage() {
-  return (
-    <Image
-      style={{width: 5, height: 5}}
-      source={require('withgroup/assets/images/header/Vector.png')}
-    />
-  );
-}

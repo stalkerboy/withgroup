@@ -56,6 +56,10 @@ target 'withgroup' do
 
   pod 'react-native-config', :path => '../node_modules/react-native-config'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
+
   target 'withgroupTests' do
     inherit! :complete
     # Pods for testing

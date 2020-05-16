@@ -12,13 +12,14 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {Center} from '../../Component/Center';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
     flexDirection: 'column',
   },
   logo: {
@@ -35,6 +36,11 @@ const styles = StyleSheet.create({
   idtext: {
     width: 250,
     marginLeft: 5,
+    marginTop:10,
+    borderRadius: 25,
+    borderColor:'#03D2B4',
+    height: 50,
+    borderWidth: 1
   },
   loginText: {
     flexDirection: 'row',
@@ -82,47 +88,47 @@ export function Login({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('withgroup/assets/images/logo.png')}
-        style={styles.logo}
-      />
-      <Text style={styles.welcome}>
-        스터디 모임 플랫폼에 오신걸 환영합니다.
-      </Text>
-      <View style={styles.loginText}>
-        <Icon name="mail" size={30} />
-        <TextInput
-          style={styles.idtext}
-          onChangeText={setEmail}
-          autoCorrect={false}
-          placeholder=":"
+      <View style={styles.container}>
+        
+        <Image
+          source={require('withgroup/assets/images/logo.png')}
+          style={styles.logo}
         />
-      </View>
-      <View style={styles.loginText}>
-        <Icon name="lock" size={30} />
-        <TextInput
-          style={styles.idtext}
-          onChangeText={setPassword}
-          autoCorrect={false}
-          placeholder=":"
-          secureTextEntry={true}
-        />
-      </View>
-      <FooterButton
-        buttonText="Login"
-        style={styles.loginButton}
-        onPress={onClickLogin}
-      />
-      <TouchableOpacity onPress={() => navigation.navigate('Find')}>
-        <Text style={styles.forgotPassword}>Forgot to your Password?</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.createAccountText}>
-          Don't have account? Create one
+        <Text style={styles.welcome}>
+          Fruit 플랫폼에 오신걸 환영합니다.
         </Text>
-      </TouchableOpacity>
-    </View>
+        <View style={styles.loginText}>
+          
+          <TextInput
+            style={styles.idtext}
+            onChangeText={setEmail}
+            autoCorrect={false}
+          />
+          
+        </View>
+        <View style={styles.loginText}>
+        
+          <TextInput
+            style={styles.idtext}
+            onChangeText={setPassword}
+            autoCorrect={false}
+            secureTextEntry={true}
+          />
+        </View>
+        <FooterButton
+          buttonText="Login"
+          style={styles.loginButton}
+          onPress={onClickLogin}
+        />
+        <TouchableOpacity onPress={() => navigation.navigate('Find')}>
+          <Text style={styles.forgotPassword}>Forgot to your Password?</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.createAccountText}>
+            Don't have account? Create one
+          </Text>
+        </TouchableOpacity>        
+      </View>
   );
 }

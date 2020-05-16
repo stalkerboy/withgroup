@@ -1,14 +1,15 @@
 import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   TouchableOpacity,
-  TextInput,
+  TextInput
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import {Picker} from '@react-native-community/picker';
 import FooterButton from '../../Component/FooterButton';
+import { Text } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,12 +49,15 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
-
+state = {
+  language: 'java',
+}; 
 export function Register({navigation, route}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nick, setNick] = useState('');
-
+  const [introduce,setIntroduce] = useState('');
+  const [selectedValue, setSelectedValue] = useState("java");
   const signup = useCallback(() => {
     dispatch({
       type: 'REGISTER',
@@ -114,7 +118,27 @@ export function Register({navigation, route}) {
           secureTextEntry={true}
         />
       </View>
-
+      <View style={styles.signupText}>
+        <Icon name="meh" size={30} />
+        <TextInput
+          style={styles.inputText}
+          onChangeText={setIntroduce}
+          autoCorrect={false}
+          placeholder="소개"
+          secureTextEntry={true}
+        />
+      </View>
+      <Text h3>직업 : 
+        <Picker
+          selectedValue={this.state.language}
+          style={{height: 50, width: 100}}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({language: itemValue})
+          }>
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+      </Text>
       <FooterButton
         buttonText="Sign Up"
         style={styles.signupButton}
