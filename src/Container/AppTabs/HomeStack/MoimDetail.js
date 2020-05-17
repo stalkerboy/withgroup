@@ -67,12 +67,15 @@ const styles = StyleSheet.create({
     marginLeft:350,
     paddingVertical: 50,
     width: 50,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 15, 
+    borderRadius:5,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
     elevation: 1,
-    
     textAlign: "center",
     fontSize: 30,
   },
