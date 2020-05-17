@@ -8,6 +8,7 @@ import {CreateStudy} from './CreateStudy';
 import {useDispatch} from 'react-redux';
 import {MoimMain} from './MoimMain';
 import {MoimDetail} from './MoimDetail';
+import {SharePlan} from './SharePlan';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
@@ -33,9 +34,23 @@ function MyDrawer() {
 function LogoTitle() {
   return (
     <View style={{flex: 1}}>
-    <Text style={[{ color: "#03D2B4",fontSize: 30,fontWeight: "bold",margin: 100 }]}>Fruit</Text>
+      <Text style={[{ color: "#03D2B4",fontSize: 30,fontWeight: "bold",margin: 100 }]}>Fruit</Text>
     </View>
   ); 
+}
+function MoimDetailTitle(){
+  return(
+    <View style={{flex: 1}}>
+      <Text style={[{ color: "#03D2B4",fontSize: 20,fontWeight: "bold",margin: 100 }]}>Deatil변수</Text>
+    </View>
+  )
+}
+function SharePlanTitle(){
+  return(
+    <View style={{flex: 1}}>
+      <Text style={[{ color: "#03D2B4",fontSize: 20,fontWeight: "bold",margin: 100 }]}>SharePlan</Text>
+    </View>
+  )
 }
 function HeaderR() {
   return ( <Image  source={require('../../../../assets/images/header/Vector.png')} style={{height:20, width:30,resizeMode:'contain',margin: 20}} /> );
@@ -79,7 +94,16 @@ export const HomeStack = ({}) => {
         }}
         component={Feed}
       />
-      <Stack.Screen name="MoimDetail" component={MoimDetail} />
+      <Stack.Screen name="MoimDetail" component={MoimDetail}
+       options={{
+        headerTitle: props => <MoimDetailTitle {...props}/>
+       
+      }} />
+      <Stack.Screen name="SharePlan" component={SharePlan}
+       options={{
+        headerTitle: props => <SharePlanTitle {...props}/>
+       
+      }} />
       <Stack.Screen name="CreateStudy" component={CreateStudy} />
     </Stack.Navigator>
   );

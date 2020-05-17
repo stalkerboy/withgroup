@@ -49,24 +49,24 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
-state = {
-  language: 'java',
-}; 
+
 export function Register({navigation, route}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [nick, setNick] = useState('');
+  const [name, setName] = useState('');
   const [introduce,setIntroduce] = useState('');
-  const [selectedValue, setSelectedValue] = useState("java");
+
   const signup = useCallback(() => {
     dispatch({
       type: 'REGISTER',
       data: {
         email,
         password,
+        name,
+        introduce,
       },
     });
-  }, [email, password]);
+  }, [email, password,name,introduce]);
 
   return (
     <View style={styles.container}>
@@ -112,7 +112,7 @@ export function Register({navigation, route}) {
         <Icon name="meh" size={30} />
         <TextInput
           style={styles.inputText}
-          onChangeText={setNick}
+          onChangeText={setName}
           autoCorrect={false}
           placeholder="닉네임"
           secureTextEntry={true}
@@ -126,19 +126,11 @@ export function Register({navigation, route}) {
           autoCorrect={false}
           placeholder="소개"
           secureTextEntry={true}
+          multiline={true}
+          numberOfLines={4}
         />
       </View>
-      <Text h3>직업 : 
-        <Picker
-          selectedValue={this.state.language}
-          style={{height: 50, width: 100}}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setState({language: itemValue})
-          }>
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
-        </Picker>
-      </Text>
+      
       <FooterButton
         buttonText="Sign Up"
         style={styles.signupButton}

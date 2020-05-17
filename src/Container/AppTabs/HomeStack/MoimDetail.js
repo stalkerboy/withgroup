@@ -31,7 +31,24 @@ export function MoimDetail({route, navigation}) {
     });
   }, []);
 
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+        <Text style={styles.top}>스터디 목표</Text>
+ 
+        <Text style={styles.top}>모임원 보기</Text>
+        
+        <Text style={styles.top}>일정 달성 현황</Text>
+        <View style={styles.rectangle}> 
+                                          <TouchableOpacity onPress={() => navigation.navigate('SharePlan')}>
+                                            <Image source={require('../../../../assets/images/moimdetail/SharePlan.png')} style={styles.RectangleList}/>
+                                          </TouchableOpacity>
+                                          <TouchableOpacity onPress={() => navigation.navigate('SharePlan')}>
+                                            <Text style={styles.RectangleList}>일정</Text>
+                                          </TouchableOpacity>
+                                          <Image source={require('../../../../assets/images/moimdetail/Chat.png')} style={styles.RectangleList}/>
+                                          <Text style={styles.RectangleList}>채팅</Text>
+        </View>
+    </View>);
 }
 const styles = StyleSheet.create({
   container: {
@@ -40,6 +57,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5F5F5',
+  },
+  RectangleList:{
+    marginLeft:10,
+    marginTop:20,
+  },
+  rectangle: {
+    marginBottom: 136,
+    marginLeft:350,
+    paddingVertical: 50,
+    width: 50,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 15, 
+    elevation: 1,
+    
+    textAlign: "center",
+    fontSize: 30,
+  },
+  top:{
+    color: "#03D2B4"
+    ,fontSize: 20
+    ,fontWeight: "bold"
+    ,flex: 1
+    ,marginTop:10
+    ,marginLeft:10
+ 
   },
   moimButton: {
     width: 100,
