@@ -1,7 +1,7 @@
 // Initial State
 const initialState = {
   moimList: [],
-  page: 1,
+  nextPage: 1,
   pageTotal: null,
   error: null,
   moimDetail: null,
@@ -18,9 +18,21 @@ const moimReducer = (state = initialState, action) => {
       return {...state, fetchingMoimList: false, error: action.payload};
     }
     case 'GETMOIM_LIST_ASYNC_FULFILLED': {
+
+      if(action.reloadable == true || state.moimList.length == 0){
+        // infinite reload일 경우 
+        action.payload.moimList.map((addList) => {
+          state.moimList.push(addList);
+        });
+  
+        state.nextPage += 1;
+      }
+
+      // console.log('state.pageTotal : ' + state.pageTotal);
+      
       return {
         ...state,
-        moimList: action.payload.moimList,
+        pageTotal : action.payload.pageTotal,
         fetchingMoimList: false,
         error: null,
       };

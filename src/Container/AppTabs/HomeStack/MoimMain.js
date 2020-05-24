@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {
   FlatList,
   Text,
@@ -17,89 +17,105 @@ const {width, height} = Dimensions.get('window');
 export function MoimMain({navigation}) {
   const dispatch = useDispatch();
   const {moimList} = useSelector((state) => state.moimReducer);
+  const {nextPage} = useSelector((state) => state.moimReducer);
+  const {pageTotal} = useSelector((state) => state.moimReducer);
   const {token} = useSelector((state) => state.authReducer);
 
-  useEffect(() => {
-    // getMoimData();
+  useEffect(() => { 
     dispatch({
       type: 'GETMOIM_LIST',
-      data: {page: 1},
-    });
-  }, []);
+      data: {page: nextPage, reloadable : false},
+    }); 
 
-  const getMoimData = useCallback(() => {
-    dispatch({
-      type: 'GETMOIM_LIST',
-      data: {page: 1},
-    });
-  }, []);
+  }, []); 
+
+  const infiniteLoading = () => {
+    if(nextPage <= pageTotal){
+      dispatch({
+        type: 'GETMOIM_LIST',
+        data: {page: nextPage, reloadable : true},
+      });
+    }
+    // console.log('pageTotal'+pageTotal);
+  };
+
+  // const getMoimData = useCallback(() => {
+  //   dispatch({
+  //     type: 'GETMOIM_LIST',
+  //     data: {page: ScrollPage},
+  //   });
+  // }, []);
 
   return (
-    <View>
-      <FlatList
-        // data={this.state.data}
-        data={moimList}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('MoimDetail', {
-                dataid: item.id,
-                token: token,
-              });
-            }}>
-            <View
-              style={{flexDirection: 'row', flex: 1}}
-              keyExtractor={(item) => item.toString()}>
-              <Image
-                source={
-                  item.imageName === null
-                    ? require('../../../../assets/images/list.png')
-                    : {
-                        uri: `${API.GETMOIMIMAGE}/${item.imageName}.${item.imageExtension}`,
-                      }
-                }
-                style={{width: 100, height: 75}}
-              />
-              <View style={styles.textMoim}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                    marginTop: 1,
-                    fontFamily: 'Noto Sans KR',
-                  }}>
-                  {item.title}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    fontFamily: 'Noto Sans KR',
-                    fontWeight: '500',
-                  }}>
-                  {item.intro}
-                </Text>
-                <Text style={{fontWeight: '200'}}>{item.people.name}</Text>
+    <>
+      <View>
+        <FlatList
+          // data={this.state.data}
+          data={moimList}
+          onEndReached = {infiniteLoading}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('MoimDetail', {
+                  dataid: item.id,
+                  token: token,
+                });
+              }}>
+              <View
+                style={{flexDirection: 'row', flex: 1}}
+                keyExtractor={(item) => item.toString()}>
+                <Image
+                  source={
+                    item.imageName === null
+                      ? require('../../../../assets/images/list.png')
+                      : {
+                          uri: `${API.GETMOIMIMAGE}/${item.imageName}.${item.imageExtension}`,
+                        }
+                  }
+                  style={{width: 100, height: 75}}
+                />
+                <View style={styles.textMoim}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 'bold',
+                      marginTop: 1,
+                      fontFamily: 'Noto Sans KR',
+                    }}>
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontFamily: 'Noto Sans KR',
+                      fontWeight: '500',
+                    }}>
+                    {item.intro}
+                  </Text>
+                  <Text style={{fontWeight: '200'}}>{item.people.name}</Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+            </TouchableOpacity>
+          )}
+        />
 
-      <FloatingAction
-        actions={[
-          {
-            text: 'Accessibility',
-            icon: require('withgroup/assets/images/add.png'),
-            name: 'bt_accessibility',
-            position: 1,
-          },
-        ]}
-        overrideWithAction
-        onPressItem={(name) => {
-          navigation.navigate('CreateStudy');
-        }}
-      />
-    </View>
+        <FloatingAction
+          actions={[
+            {
+              text: 'Accessibility',
+              icon: require('withgroup/assets/images/add.png'),
+              name: 'bt_accessibility',
+              position: 1,
+            },
+          ]}
+          overrideWithAction
+          onPressItem={(name) => {
+            navigation.navigate('CreateStudy');
+          }}
+        />
+        
+      </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
