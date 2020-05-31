@@ -26,7 +26,7 @@ const searchInitialValues = {
 
 export function HeaderR({navigation}) {
     const dispatch = useDispatch();
-    const {moimListCA} = useSelector((state) => state.moimReducer);
+    const {CA1} = useSelector((state) => state.moimReducer);
     const [selectedValue, setSelectedValue] = useState('전체');
     
     useEffect(() => {
@@ -39,7 +39,7 @@ export function HeaderR({navigation}) {
 
     const getMoimListCA = useCallback(() => {
         dispatch({
-            type: 'GETMOIM_LIST_CA',
+            type: 'GET_CA',
             data: {},
         }); 
     }, []);
@@ -47,11 +47,11 @@ export function HeaderR({navigation}) {
     return (
         <View style = {styles.container}>
             <Picker style = {styles.category}
-                selectedValue={moimListCA}
+                selectedValue={CA1}
                 onValueChange={ (itemValue, itemIndex) => setSelectedValue(itemValue) }
                 >
-                {moimListCA.map((moimListCA, i) => {
-                    return <Picker.Item key={i} value={moimListCA.commCode} label={moimListCA.commName} />
+                {CA1.map((CA1, i) => {
+                    return <Picker.Item key={i} value={CA1.commCode} label={CA1.commName} />
                 })}
             </Picker>
             

@@ -1,7 +1,9 @@
 // Initial State
 const initialState = {
   moimList: [],
-  moimListCA: [],
+  CA1: [],
+  CA2: [],
+  CA3: [],
   page: 1,
   nextPage: 1,
   pageTotal: null,
@@ -40,21 +42,33 @@ const moimReducer = (state = initialState, action) => {
       };
     }
     // MoimList CA
-    case 'GETMOIM_LIST_CA_ASYNC_REJECTED': {
+    case 'GET_CA_ASYNC_REJECTED': {
       return {...state, fetchingMoimList: false, error: action.payload};
     }
-    case 'GETMOIM_LIST_CA_ASYNC_FULFILLED': {
+    case 'GET_CA_ASYNC_FULFILLED': {
 
-      if(state.moimListCA.length == 0){
-        // infinite reload일 경우 
-        action.payload.moimListCA.map((addList) => {
-          state.moimListCA.push(addList);
+      if(state.CA1.length == 0){
+        action.payload.CA1.map((addList) => {
+          state.CA1.push(addList);
         });
-
+      } 
+      if(state.CA2.length == 0){
+        action.payload.CA2.map((addList) => {
+          state.CA2.push(addList);
+        });
+      } 
+      if(state.CA3.length == 0){
+        action.payload.CA3.map((addList) => {
+          state.CA3.push(addList);
+        });
       } 
 
-      console.log('before : moimListCA ');
-      console.log(state.moimListCA);
+      console.log('before : CA1 ');
+      console.log(state.CA1);
+      console.log('before : CA2 ');
+      console.log(state.CA2);
+      console.log('before : CA3 ');
+      console.log(state.CA3);
       return {
         ...state,
         error: null,
