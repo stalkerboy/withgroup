@@ -3,7 +3,44 @@ import {delay, takeEvery, takeLatest, put, call} from 'redux-saga/effects';
 import axios from 'axios';
 import {API} from '../api';
 
-// Increase LOGIN Async
+// MoimList CA Async
+function* getMoimListCAAsync(action) {
+
+  try {
+    const getMoimListCAResponse = yield call(getMoimListCA.bind(this));
+    yield put({
+      type: 'GETMOIM_LIST_CA_ASYNC_FULFILLED',
+      payload: getMoimListCAResponse,
+    });
+  } catch (error) {
+    yield put({type: 'GETMOIM_LIST_CA_ASYNC_REJECTED', payload: error});
+  }
+
+}
+
+// Generator: Watch Increase LOG
+export function* watchGetMoimListCA() {
+  // Take Last Action
+  yield takeLatest('GETMOIM_LIST_CA', getMoimListCAAsync);
+}
+
+const getMoimListCA = async () => {
+
+  await axios
+    .get(`${API.MOIMELEMTENT}`)
+    .then((res) => {
+
+      data = {
+        moimListCA: res.data.element_CA1,
+      };
+    })
+    .catch((error) => {
+      console.log('error' + error);
+    });
+  return data;
+};
+
+// MoimList Async
 function* getMoimListAsync(action) {
   yield put({type: 'GETMOIM_LIST_START'});
   yield delay(100);
@@ -27,13 +64,10 @@ export function* watchGetMoimList() {
 }
 
 const getMoimList = async ({page, reloadable}) => {
-  //test
-  //   return {data: {jwt: {accessToken: '12313123'}}};
 
   await axios
     .get(`${API.MOIMLISTVIEW}?page=${page}`)
     .then((res) => {
-      // console.log('totalPages' + res.data.moimList.totalPages);
       data = {
         moimList: res.data.moimList.content,
         page: page ? page : 1,
@@ -44,14 +78,6 @@ const getMoimList = async ({page, reloadable}) => {
       console.log('error' + error);
     });
   return data;
-  //   .post(API.LOGIN, {
-  //       email: payload.email,
-  //       password: payload.password,
-  //     })
-  //     .then(response => {
-  //       console.log(response);
-  //       return response.data;
-  //     });
 };
 
 // Generator: Watch Increase LOG

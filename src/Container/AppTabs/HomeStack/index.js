@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button, TouchableOpacity, Image,View,Text,useWindowDimensions} from 'react-native';
+import {Button, TouchableOpacity, Image,View,Text,useWindowDimensions, TouchableHighlight} from 'react-native';
 import {EditProductStack} from '../../Share/Stack/EditProductStack';
 import {ProductStack} from '../../Share/Stack/ProductStack';
 import {Feed} from './Feed';
@@ -9,6 +9,8 @@ import {useDispatch} from 'react-redux';
 import {MoimMain} from './MoimMain';
 import {MoimDetail} from './MoimDetail';
 import {SharePlan} from './SharePlan';
+import {SearchMoim} from './SearchMoim';
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
@@ -52,14 +54,20 @@ function SharePlanTitle(){
     </View>
   )
 }
-function HeaderR() {
-  return ( <Image  source={require('../../../../assets/images/header/Vector.png')} style={{height:20, width:30,resizeMode:'contain',margin: 20}} /> );
- 
+function HeaderR({navigation}) {
+  return ( 
+    <TouchableHighlight onPress={() => {
+      console.log(123);
+      // navigation.navigate('SearchMoim');
+    }}>
+      <Image  source={require('../../../../assets/images/header/Vector.png')} style={{height:20, width:30,resizeMode:'contain',margin: 20}} />
+    </TouchableHighlight>  
+  ); 
 }
 function HeaderL(){
   return(<Image source={require('../../../../assets/images/header/profileimg.png')} style={{height:20, width: 30,justifyContent:'center', alignItems:'center',  resizeMode:'contain',margin: 20}}/> );
-  
 }
+
 export const HomeStack = ({}) => {
   const dispatch = useDispatch();
   return (
@@ -71,8 +79,15 @@ export const HomeStack = ({}) => {
         component={MoimMain}
         options={{
           headerTitle: props => <LogoTitle {...props}/>,
-          headerRight: ()=> <HeaderR/>,
+          headerRight: ()=> <HeaderR />,
           headerLeft: ()=> <HeaderL />
+        }}
+      />
+      <Stack.Screen
+        name="SearchMoim"
+        component={MoimMain}
+        options={{
+          headerTitle: props => <SearchMoim {...props} />,
         }}
       />
 
@@ -105,6 +120,7 @@ export const HomeStack = ({}) => {
        
       }} />
       <Stack.Screen name="CreateStudy" component={CreateStudy} />
+      
     </Stack.Navigator>
   );
 };

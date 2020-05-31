@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback, useState} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {
   FlatList,
   Text,
@@ -22,12 +22,17 @@ export function MoimMain({navigation}) {
   const {token} = useSelector((state) => state.authReducer);
 
   useEffect(() => { 
+    // MOIM_LIST
+    getMoimList();
+
+  }, []); 
+
+  const getMoimList = useCallback(() => {
     dispatch({
       type: 'GETMOIM_LIST',
       data: {page: nextPage, reloadable : false},
     }); 
-
-  }, []); 
+  }, []);
 
   const infiniteLoading = () => {
     if(nextPage <= pageTotal){
@@ -36,15 +41,10 @@ export function MoimMain({navigation}) {
         data: {page: nextPage, reloadable : true},
       });
     }
-    // console.log('pageTotal'+pageTotal);
-  };
 
-  // const getMoimData = useCallback(() => {
-  //   dispatch({
-  //     type: 'GETMOIM_LIST',
-  //     data: {page: ScrollPage},
-  //   });
-  // }, []);
+    // console.log('onEndReached');
+    // console.log(nextPage);
+  };
 
   return (
     <>
