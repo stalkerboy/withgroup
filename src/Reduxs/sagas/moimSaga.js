@@ -4,34 +4,36 @@ import axios from 'axios';
 import {API} from '../api';
 
 // MoimList CA Async
-function* getMoimListCAAsync(action) {
+function* getCAAsync(action) {
 
   try {
-    const getMoimListCAResponse = yield call(getMoimListCA.bind(this));
+    const getCAResponse = yield call(getCA.bind(this));
     yield put({
-      type: 'GETMOIM_LIST_CA_ASYNC_FULFILLED',
-      payload: getMoimListCAResponse,
+      type: 'GET_CA_ASYNC_FULFILLED',
+      payload: getCAResponse,
     });
   } catch (error) {
-    yield put({type: 'GETMOIM_LIST_CA_ASYNC_REJECTED', payload: error});
+    yield put({type: 'GET_CA_ASYNC_REJECTED', payload: error});
   }
 
 }
 
 // Generator: Watch Increase LOG
-export function* watchGetMoimListCA() {
+export function* watchGetCA() {
   // Take Last Action
-  yield takeLatest('GETMOIM_LIST_CA', getMoimListCAAsync);
+  yield takeLatest('GET_CA', getCAAsync);
 }
 
-const getMoimListCA = async () => {
+const getCA = async () => {
 
   await axios
     .get(`${API.MOIMELEMTENT}`)
     .then((res) => {
 
       data = {
-        moimListCA: res.data.element_CA1,
+        CA1: res.data.element_CA1,
+        CA2: res.data.element_CA2,
+        CA3: res.data.element_CA3,
       };
     })
     .catch((error) => {
