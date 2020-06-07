@@ -3,7 +3,7 @@ import {delay, takeEvery, takeLatest, put, call} from 'redux-saga/effects';
 import axios from 'axios';
 import {API} from '../api';
 
-// MoimList CA Async
+// CA Async
 function* getCAAsync(action) {
 
   try {
@@ -53,6 +53,7 @@ function* getMoimListAsync(action) {
       type: 'GETMOIM_LIST_ASYNC_FULFILLED',
       payload: getMoimListResponse,
       reloadable : action.data.reloadable,
+      searchable : action.data.searchable,
     });
   } catch (error) {
     yield put({type: 'GETMOIM_LIST_ASYNC_REJECTED', payload: error});
@@ -65,10 +66,10 @@ export function* watchGetMoimList() {
   yield takeLatest('GETMOIM_LIST', getMoimListAsync);
 }
 
-const getMoimList = async ({page, reloadable}) => {
-
+const getMoimList = async ({commCode, page, reloadable}) => {
+  
   await axios
-    .get(`${API.MOIMLISTVIEW}?page=${page}`)
+    .get(`${API.MOIMLISTVIEW}/${commCode}?page=${page}`)
     .then((res) => {
       data = {
         moimList: res.data.moimList.content,

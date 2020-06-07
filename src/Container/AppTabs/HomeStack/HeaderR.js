@@ -13,18 +13,8 @@ const searchMoimSchema = yup.object().shape({
 
 });
 
-const searchInitialValues = {
-    name: '타이틀',
-    userCount: '4',
-    subject: {label: '자바', value: 'java'},
-    area: [],
-    policy: '',
-    introduction: '',
-    mainPicture: '',
-};
 
-
-export function HeaderR({navigation}) {
+export function HeaderR() {
     const dispatch = useDispatch();
     const {CA1} = useSelector((state) => state.moimReducer);
     const [selectedValue, setSelectedValue] = useState('전체');
@@ -32,10 +22,7 @@ export function HeaderR({navigation}) {
     useEffect(() => {
         // MOIM_LIST_CA
         getMoimListCA();
-
-        console.log('selectedValue');
-        console.log(selectedValue);
-    }, []);
+    }, [CA1]);
 
     const getMoimListCA = useCallback(() => {
         dispatch({
@@ -44,33 +31,59 @@ export function HeaderR({navigation}) {
         }); 
     }, []);
 
+    const onChange = e => {
+        console.log(e);
+        setSelectedValue(e.commName);
+        if(e != '00'){ // '최상단 안내 카테고리일때는 미발동'
+            dispatch({
+                type: 'GETMOIM_LIST',
+                data: {commCode: e.commCode, page: 1, reloadable: false, searchable: true},
+            }); 
+        }
+    }
+
     return (
         <View style = {styles.container}>
-            <Picker style = {styles.category}
-                selectedValue={CA1}
-                onValueChange={ (itemValue, itemIndex) => setSelectedValue(itemValue) }
-                >
-                {CA1.map((CA1, i) => {
-                    return <Picker.Item key={i} value={CA1.commCode} label={CA1.commName} />
-                })}
-            </Picker>
-            
-            <TouchableHighlight onPress={() => {
-                console.log(123);
-                // navigation.navigate('SearchMoim');
-            }}>
-                <Image  source={require('../../../../assets/images/header/Vector.png')} style={{height:20, width:30,resizeMode:'contain',margin: 20}} />
-            </TouchableHighlight>           
+            <View style={styles.pickerView}>
+                <Picker
+                    selectedValue={selectedValue}
+                    style={styles.picker}
+                    onValueChange={ onChange }
+                    >
+                    <Picker.Item value='00' label='select a support' />
+                    {CA1.map((CA1, i) => {
+                        return <Picker.Item key={i} value={CA1} label={CA1.commName} />
+                    })}
+                </Picker>
+            </View>
+            <View style={styles.touchableView}>
+                <TouchableHighlight onPress={() => {
+                    console.log(123);
+                    // navigation.navigate('SearchMoim');
+                }}>
+                    <Image  source={require('../../../../assets/images/header/Vector.png')} style={{height:20, width:30,resizeMode:'contain',margin: 20}} />
+                </TouchableHighlight> 
+            </View>
         </View>
+                      
     );
 }
 
 const styles = StyleSheet.create({
     container : {
-        // flex: 1,
-        color: "#03D2B4",
-        fontSize: 20,
-        fontWeight: "bold",
-        margin: 100,
-    }
+        flexDirection : 'row',
+    },
+    pickerView : {
+        paddingTop : 5,
+        alignItems : 'center',
+        width: 110,
+    },
+    picker : {
+        width: 110,
+        color: 'black',
+    },
+    touchableView : {
+        alignItems : 'center',
+        width: 40,
+    },
 });

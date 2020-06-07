@@ -4,6 +4,7 @@ const initialState = {
   CA1: [],
   CA2: [],
   CA3: [],
+  commCode : '01',
   page: 1,
   nextPage: 1,
   pageTotal: null,
@@ -23,16 +24,22 @@ const moimReducer = (state = initialState, action) => {
     }
     case 'GETMOIM_LIST_ASYNC_FULFILLED': {
 
-      if(action.reloadable == true || state.moimList.length == 0){
-        // infinite reload일 경우 
+      if(action.reloadable == true || (state.moimList.length == 0 && action.searchable == false) ){
+        // infinite reload일 경우 혹은 첫 페이지 로드의 경우
         action.payload.moimList.map((addList) => {
           state.moimList.push(addList);
         });
   
         state.nextPage += 1;
-      }
+      } else if(action.searchable == true){
+        // 카테고리별 검색의 경우
+        state.moimList = [];
+        action.payload.moimList.map((addList) => {
+          state.moimList.push(addList);
+        });
 
-      // console.log('state.pageTotal : ' + state.pageTotal);
+        state.nextPage = 2;
+      }
       
       return {
         ...state,
@@ -41,7 +48,7 @@ const moimReducer = (state = initialState, action) => {
         error: null,
       };
     }
-    // MoimList CA
+    // CA
     case 'GET_CA_ASYNC_REJECTED': {
       return {...state, fetchingMoimList: false, error: action.payload};
     }
@@ -63,12 +70,6 @@ const moimReducer = (state = initialState, action) => {
         });
       } 
 
-      console.log('before : CA1 ');
-      console.log(state.CA1);
-      console.log('before : CA2 ');
-      console.log(state.CA2);
-      console.log('before : CA3 ');
-      console.log(state.CA3);
       return {
         ...state,
         error: null,

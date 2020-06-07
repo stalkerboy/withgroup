@@ -19,8 +19,9 @@ export function MoimMain({navigation}) {
   const {moimList} = useSelector((state) => state.moimReducer);
   const {nextPage} = useSelector((state) => state.moimReducer);
   const {pageTotal} = useSelector((state) => state.moimReducer);
+  const {commCode} = useSelector((state) => state.moimReducer);
   const {token} = useSelector((state) => state.authReducer);
-
+  
   useEffect(() => { 
     // MOIM_LIST
     getMoimList();
@@ -30,7 +31,7 @@ export function MoimMain({navigation}) {
   const getMoimList = useCallback(() => {
     dispatch({
       type: 'GETMOIM_LIST',
-      data: {page: nextPage, reloadable : false},
+      data: {commCode: commCode, page: nextPage, reloadable : false, searchable: false},
     }); 
   }, []);
 
@@ -38,12 +39,10 @@ export function MoimMain({navigation}) {
     if(nextPage <= pageTotal){
       dispatch({
         type: 'GETMOIM_LIST',
-        data: {page: nextPage, reloadable : true},
+        data: {commCode: commCode, page: nextPage, reloadable : true, searchable: false},
       });
     }
 
-    // console.log('onEndReached');
-    // console.log(nextPage);
   };
 
   return (
