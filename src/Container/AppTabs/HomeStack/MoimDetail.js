@@ -32,6 +32,7 @@ export function MoimDetail({route, navigation}) {
   }, []);
 
   return (
+    !moimDetail?null: (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic" 
       style={styles.scrollView}>
@@ -79,7 +80,7 @@ export function MoimDetail({route, navigation}) {
         </View>
       </View>
     </ScrollView>
-  );
+  ));
 }
 
 const styles = StyleSheet.create({

@@ -20,6 +20,8 @@ export function MoimSchedule({route, navigation}) {
   }, []);
 
   return (
+    !moimDetail?null:
+    (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       style={styles.scrollView}> 
@@ -43,6 +45,7 @@ export function MoimSchedule({route, navigation}) {
         </View>
       </View>
     </ScrollView>
+    )
   );
 }
 
