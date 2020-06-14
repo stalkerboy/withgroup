@@ -33,7 +33,7 @@ export function MoimDetail({route, navigation}) {
 
   return (
     <ScrollView
-      contentInsetAdjustmentBehavior="automatic"
+      contentInsetAdjustmentBehavior="automatic" 
       style={styles.scrollView}>
       <View style={styles.body}>
         <View style={styles.sectionContainer}>
