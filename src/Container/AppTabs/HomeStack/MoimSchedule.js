@@ -22,7 +22,7 @@ export function MoimSchedule({route, navigation}) {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      style={styles.scrollView}>
+      style={styles.scrollView}> 
       <View style={styles.body}>
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>모임 일정 페이지 샘플</Text>
