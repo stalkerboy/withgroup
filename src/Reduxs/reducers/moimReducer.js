@@ -27,6 +27,9 @@ const moimReducer = (state = initialState, action) => {
       if(action.reloadable == true || (state.moimList.length == 0 && action.searchable == false) ){
         // infinite reload일 경우 혹은 첫 페이지 로드의 경우
         action.payload.moimList.map((addList) => {
+          if(addList.intro.length > 20){
+            addList.intro = addList.intro.substr(0,20);
+          }
           state.moimList.push(addList);
         });
   
@@ -35,12 +38,15 @@ const moimReducer = (state = initialState, action) => {
         // 카테고리별 검색의 경우
         state.moimList = [];
         action.payload.moimList.map((addList) => {
+          if(addList.intro.length > 20){
+            addList.intro = addList.intro.substr(0,20);
+          }
           state.moimList.push(addList);
         });
 
         state.nextPage = 2;
       }
-      
+         
       return {
         ...state,
         pageTotal : action.payload.pageTotal,
