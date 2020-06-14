@@ -36,6 +36,7 @@ export function MoimMain({navigation}) {
   }, []);
 
   const infiniteLoading = () => {
+    console.log('infiniteLoading');
     if(nextPage <= pageTotal){
       dispatch({
         type: 'GETMOIM_LIST',
@@ -98,22 +99,22 @@ export function MoimMain({navigation}) {
           )}
         />
 
-        <FloatingAction
-          actions={[
-            {
-              text: 'Accessibility',
-              icon: require('withgroup/assets/images/add.png'),
-              name: 'bt_accessibility',
-              position: 1,
-            },
-          ]}
-          overrideWithAction
-          onPressItem={(name) => {
-            navigation.navigate('CreateStudy');
-          }}
-        />
         
       </View>
+      <FloatingAction
+        actions={[
+          {
+            text: 'Accessibility',
+            icon: require('withgroup/assets/images/add.png'),
+            name: 'bt_accessibility',
+            position: 1,
+          },
+        ]}
+        overrideWithAction
+        onPressItem={(name) => {
+          navigation.navigate('CreateStudy');
+        }}
+      />
     </>
   );
 }
