@@ -18,6 +18,7 @@ export function HeaderR() {
     const dispatch = useDispatch();
     const {CA1} = useSelector((state) => state.moimReducer);
     const [selectedValue, setSelectedValue] = useState('전체');
+    const [selectedCode, setSelectedCode] = useState('00');
     
     useEffect(() => {
         // MOIM_LIST_CA
@@ -34,10 +35,14 @@ export function HeaderR() {
     const onChange = e => {
         console.log(e);
         setSelectedValue(e.commName);
-        if(e != '00'){ // '최상단 안내 카테고리일때는 미발동'
+        setSelectedCode(e.commCode);
+    }
+
+    const onSearch = e => {
+        if( selectedCode != '00' ){ // '최상단 안내 카테고리일때는 미발동'
             dispatch({
                 type: 'GETMOIM_LIST',
-                data: {commCode: e.commCode, page: 1, reloadable: false, searchable: true},
+                data: {commCode: selectedCode, page: 1, reloadable: false, searchable: true},
             }); 
         }
     }
@@ -50,17 +55,15 @@ export function HeaderR() {
                     style={styles.picker}
                     onValueChange={ onChange }
                     >
-                    <Picker.Item value='00' label='select a support' />
+                    <Picker.Item value='00' label='카테고리를 선택해주세요.' />
                     {CA1.map((CA1, i) => {
+                        console.log(1);
                         return <Picker.Item key={i} value={CA1} label={CA1.commName} />
                     })}
                 </Picker>
             </View>
             <View style={styles.touchableView}>
-                <TouchableHighlight onPress={() => {
-                    console.log(123);
-                    // navigation.navigate('SearchMoim');
-                }}>
+                <TouchableHighlight onPress={onSearch}>
                     <Image  source={require('../../../../assets/images/header/Vector.png')} style={{height:20, width:30,resizeMode:'contain',margin: 20}} />
                 </TouchableHighlight> 
             </View>
@@ -76,10 +79,10 @@ const styles = StyleSheet.create({
     pickerView : {
         paddingTop : 5,
         alignItems : 'center',
-        width: 110,
+        width: 250,
     },
     picker : {
-        width: 110,
+        width: 250,
         color: 'black',
     },
     touchableView : {
