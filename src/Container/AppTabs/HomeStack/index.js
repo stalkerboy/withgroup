@@ -8,11 +8,11 @@ import {CreateStudy} from './CreateStudy';
 import {useDispatch} from 'react-redux';
 import {MoimMain} from './MoimMain';
 import {MoimDetail} from './MoimDetail';
+import {MoimSchedule} from './MoimSchedule';
 import {SharePlan} from './SharePlan';
 import {HeaderR} from './HeaderR';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { MoimSchedule } from './MoimSchedule';
 
 
 const Stack = createStackNavigator();
@@ -101,28 +101,23 @@ export const HomeStack = ({}) => {
         }}
         component={Feed}
       />
-      <Stack.Screen
-        name="MoimDetail"
-        component={MoimDetail}
-        options={{
-          headerTitle: props => <MoimDetailTitle {...props}/>
-        }}
-      />
-      <Stack.Screen
-        name="SharePlan"
-        component={SharePlan}
-        options={{
-          headerTitle: props => <SharePlanTitle {...props}/>
-        }}
-      />
+      <Stack.Screen name="MoimDetail" component={MoimDetail}
+       options={{
+        headerTitle: props => <MoimDetailTitle {...props}/>
+       
+      }} />
+      <Stack.Screen name="SharePlan" component={SharePlan}
+       options={{
+        headerTitle: props => <SharePlanTitle {...props}/>
+       
+      }} />
       <Stack.Screen name="CreateStudy" component={CreateStudy} />
-      <Stack.Screen
-        name="MoimSchedule"
-        component={MoimSchedule}
-        options={{
-          headerTitle: props => <MoimScheduleTitle {...props}/>
-        }}
-      />
+      
+      <Stack.Screen name="MoimSchedule" component={MoimSchedule}
+       options={{
+        headerTitle: props => <MoimDetailTitle {...props}/>
+       
+      }} />
     </Stack.Navigator>
   );
 };
