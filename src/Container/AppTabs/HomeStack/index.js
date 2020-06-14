@@ -12,6 +12,7 @@ import {SharePlan} from './SharePlan';
 import {HeaderR} from './HeaderR';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { MoimSchedule } from './MoimSchedule';
 
 
 const Stack = createStackNavigator();
@@ -43,7 +44,14 @@ function LogoTitle() {
 function MoimDetailTitle(){
   return(
     <View style={{flex: 1}}>
-      <Text style={[{ color: "#03D2B4",fontSize: 20,fontWeight: "bold",margin: 100 }]}>Deatil변수</Text>
+      <Text style={[{ color: "#03D2B4",fontSize: 20,fontWeight: "bold",margin: 100 }]}>모임 상세</Text>
+    </View>
+  )
+}
+function MoimScheduleTitle(){
+  return(
+    <View style={{flex: 1}}>
+      <Text style={[{ color: "#03D2B4",fontSize: 20,fontWeight: "bold",margin: 100 }]}>모임 일정</Text>
     </View>
   )
 }
@@ -93,18 +101,28 @@ export const HomeStack = ({}) => {
         }}
         component={Feed}
       />
-      <Stack.Screen name="MoimDetail" component={MoimDetail}
-       options={{
-        headerTitle: props => <MoimDetailTitle {...props}/>
-       
-      }} />
-      <Stack.Screen name="SharePlan" component={SharePlan}
-       options={{
-        headerTitle: props => <SharePlanTitle {...props}/>
-       
-      }} />
+      <Stack.Screen
+        name="MoimDetail"
+        component={MoimDetail}
+        options={{
+          headerTitle: props => <MoimDetailTitle {...props}/>
+        }}
+      />
+      <Stack.Screen
+        name="SharePlan"
+        component={SharePlan}
+        options={{
+          headerTitle: props => <SharePlanTitle {...props}/>
+        }}
+      />
       <Stack.Screen name="CreateStudy" component={CreateStudy} />
-      
+      <Stack.Screen
+        name="MoimSchedule"
+        component={MoimSchedule}
+        options={{
+          headerTitle: props => <MoimScheduleTitle {...props}/>
+        }}
+      />
     </Stack.Navigator>
   );
 };
