@@ -52,7 +52,7 @@ function MoimScheduleTitle(){
   return(
     <View style={{flex: 1}}>
       <Text style={[{ color: "#03D2B4",fontSize: 20,fontWeight: "bold",margin: 100 }]}>모임 일정</Text>
-    </View>
+    </View> 
   )
 }
 function SharePlanTitle(){
@@ -115,7 +115,7 @@ export const HomeStack = ({}) => {
       
       <Stack.Screen name="MoimSchedule" component={MoimSchedule}
        options={{
-        headerTitle: props => <MoimDetailTitle {...props}/>
+        headerTitle: props => <MoimScheduleTitle {...props}/>
        
       }} />
     </Stack.Navigator>
