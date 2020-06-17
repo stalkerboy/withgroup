@@ -62,6 +62,8 @@ const moimReducer = (state = initialState, action) => {
 
       if(state.CA1.length == 0){
         action.payload.CA1.map((addList) => {
+          addList.value = addList.commCode;
+          addList.label = addList.commName;
           state.CA1.push(addList);
         });
       } 
