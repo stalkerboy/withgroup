@@ -27,9 +27,24 @@ const moimReducer = (state = initialState, action) => {
       if(action.reloadable == true || (state.moimList.length == 0 && action.searchable == false) ){
         // infinite reload일 경우 혹은 첫 페이지 로드의 경우
         action.payload.moimList.map((addList) => {
+          // 개행 카운트
+          rows = addList.intro.split('\n').length;
+          // 개행별 내용
+          rowIntro = addList.intro.split('\n');
+
+          // 최대 2줄까지만
+          addList.intro += rowIntro[0];
+          for(i = 1; i < 2; i++){
+            if(rowIntro[i] != undefined){
+              addList.intro += '\n'+rowIntro[i];
+            }
+          }
+
           if(addList.intro.length > 20){
             addList.intro = addList.intro.substr(0,20);
+            addList.intro += "...";
           }
+
           state.moimList.push(addList);
         });
   
@@ -37,10 +52,26 @@ const moimReducer = (state = initialState, action) => {
       } else if(action.searchable == true){
         // 카테고리별 검색의 경우
         state.moimList = [];
+
         action.payload.moimList.map((addList) => {
+          // 개행 카운트
+          rows = addList.intro.split('\n').length;
+          // 개행별 내용
+          rowIntro = addList.intro.split('\n');
+
+          // 최대 2줄까지만
+          addList.intro += rowIntro[0];
+          for(i = 1; i < 2; i++){
+            if(rowIntro[i] != undefined){
+              addList.intro += '\n'+rowIntro[i];
+            }
+          }
+
           if(addList.intro.length > 20){
             addList.intro = addList.intro.substr(0,20);
+            addList.intro += "...";
           }
+
           state.moimList.push(addList);
         });
 
@@ -51,35 +82,6 @@ const moimReducer = (state = initialState, action) => {
         ...state,
         pageTotal : action.payload.pageTotal,
         fetchingMoimList: false,
-        error: null,
-      };
-    }
-    // CA
-    case 'GET_CA_ASYNC_REJECTED': {
-      return {...state, fetchingMoimList: false, error: action.payload};
-    }
-    case 'GET_CA_ASYNC_FULFILLED': {
-
-      if(state.CA1.length == 0){
-        action.payload.CA1.map((addList) => {
-          addList.value = addList.commCode;
-          addList.label = addList.commName;
-          state.CA1.push(addList);
-        });
-      } 
-      if(state.CA2.length == 0){
-        action.payload.CA2.map((addList) => {
-          state.CA2.push(addList);
-        });
-      } 
-      if(state.CA3.length == 0){
-        action.payload.CA3.map((addList) => {
-          state.CA3.push(addList);
-        });
-      } 
-
-      return {
-        ...state,
         error: null,
       };
     }

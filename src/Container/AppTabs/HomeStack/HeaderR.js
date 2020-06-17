@@ -28,7 +28,7 @@ const searchInitialValues = {
 
 export function HeaderR() {
     const dispatch = useDispatch();
-    const {CA1} = useSelector((state) => state.moimReducer);
+    const {CA1} = useSelector((state) => state.CAReducer);
 
     useEffect(() => {
         // MOIM_LIST_CA

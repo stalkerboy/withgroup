@@ -5,12 +5,14 @@ import {combineReducers} from 'redux';
 import authReducer from './authReducer';
 import counterReducer from './counterReducer';
 import moimReducer from './moimReducer';
+import CAReducer from './CAReducer';
 
 // Redux: Root Reducer
 const rootReducer = combineReducers({
   authReducer: authReducer,
   counterReducer: counterReducer,
   moimReducer: moimReducer,
+  CAReducer: CAReducer,
 });
 
 // Exports
