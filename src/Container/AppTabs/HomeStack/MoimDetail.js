@@ -69,7 +69,7 @@ export function MoimDetail({route, navigation}) {
             title="일정보기"
             onPress={() => {
               navigation.navigate('MoimSchedule', {
-                // dataid: item.id,
+                 dataid: moimDetail.moimDetail.id,
                 // token: token,
               });
             }}

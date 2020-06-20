@@ -1,57 +1,94 @@
-import React, {useEffect, useCallback} from 'react';
-import {Text, StyleSheet, View, ScrollView} from 'react-native';
+import React, {useEffect, useCallback, useState} from 'react';
+import * as Progress from 'react-native-progress';
+import {Text, StyleSheet, View, ScrollView, FlatList,Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import Axios from 'axios';
+
+
+const {height,width}=Dimensions.get('window');
+
+
+function Item({ plan_title, people, progress }) {
+  return (
+    <View style={styles.todoList}>
+      <Text style={styles.todoListText}>{plan_title}</Text>
+      <Text style={styles.writer}>작성자: {people}</Text>
+      <Text style={{marginLeft:20, marginTop:10}}>in progress</Text>
+      <View style={styles.progressbar}>
+        <Progress.Bar progress={progress*0.01} width={350} height={14} color={"#90EE90"}  />
+        <Text style={{fontSize:11}}>  {progress}%</Text>
+      </View>
+    </View>
+  );
+}
 
 export function MoimSchedule({route, navigation}) {
+
+
+
   const dispatch = useDispatch();
-  const {moimDetail} = useSelector((state) => state.moimReducer);
 
+  //REDUCER를 이용한 방식
+  //const {moimSchedule} =useSelector((state) => state.moimReducer)
+
+  // useEffect(() => {
+  //   getMoimSchedule();
+  //   console.log('moimSchedule',moimSchedule)
+  //   // console.log('route',route.params.dataid)
+  //   // const moimId=route.params.dataid;
+  //   // Axios.get(`http://49.50.173.236/rest/moimDetail/moimTodoList/${moimId}`)
+  //   // .then(res => {
+  //   //     console.log('shareplan res', res.data.todolist.content);
+  //   //     setTodoList(res.data.todolist.content)
+  //   // })
+    
+  // }, []);
+
+  // const getMoimSchedule = useCallback(() => {
+  //   dispatch({
+  //     type:'GETMOIM_SCHEDULE',
+  //     data:{dataid:route.params.dataid, token:route.params.token}
+  //   })
+  // },[])
+
+
+  //기존 AXIOS 불러와서 쓰는방식
+  const [moimSchedule, setMoimSchedule] = useState(null)
   useEffect(() => {
-    getMoimDetail();
-    console.log('moimDetail');
-    console.log(JSON.stringify(moimDetail));
+    
+    console.log('route',route.params.dataid)
+    const moimId=route.params.dataid;
+    Axios.get(`http://49.50.173.236/rest/moimDetail/moimTodoList/${moimId}`)
+    .then(res => {
+        console.log('shareplan res', res.data.todolist.content);
+        setMoimSchedule(res.data.todolist.content)
+    })
+    
   }, []);
 
-  const getMoimDetail = useCallback(() => {
-    dispatch({
-      type: 'GETMOIM_DETAIL',
-      data: {dataid: route.params.dataid, token: route.params.token},
-    });
-  }, []);
+
 
   return (
-    !moimDetail?null:
-    (
+    !moimSchedule?null: (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
       style={styles.scrollView}> 
-      <View style={styles.body}>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>모임 일정 페이지 샘플</Text>
-          <Text style={styles.sectionDescription}>
-            여기에 모임 일정을 정리해주세요.
-          </Text>
-        </View>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionDescription}>
-            <Text style={styles.sectionLabel}>일정1</Text> : 일정1입니다
-          </Text>
-          <Text style={styles.sectionDescription}>
-            <Text style={styles.sectionLabel}>일정2</Text> : 일정2입니다
-          </Text>
-          <Text style={styles.sectionDescription}>
-            <Text style={styles.sectionLabel}>일정3</Text> : 일정3입니다
-          </Text>
-        </View>
-      </View>
+     <FlatList
+       data={moimSchedule}
+       renderItem={({ item }) => <Item plan_title={item.plan_title} people={item.people.name} progress={item.progress}/>}
+       keyExtractor={item => item.id}
+      />
+
     </ScrollView>
     )
   );
+  
 }
 
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: '#ffffff',
+    
   },
   sectionContainer: {
     marginTop: 32,
@@ -69,4 +106,28 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
   },
+  todoList:{
+    width:width-10,
+    height:120,
+    borderBottomWidth:0.5,
+    borderBottomColor:'#bbb',
+    justifyContent:'center',
+
+    
+  },
+  todoListText:{
+    fontSize:20,
+    marginLeft:20
+  },
+  writer:{
+    fontSize:15,
+    marginLeft:20,
+    color:'gray'
+    
+  },
+  progressbar:{
+    marginLeft:20, 
+    flexDirection:'row',
+    marginTop:5
+  }
 });

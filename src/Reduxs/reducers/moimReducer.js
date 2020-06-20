@@ -1,3 +1,5 @@
+import { FastField } from "formik";
+
 // Initial State
 const initialState = {
   moimList: [],
@@ -10,6 +12,7 @@ const initialState = {
   pageTotal: null,
   error: null,
   moimDetail: null,
+  moimSchedule:null,
 };
 
 const lengthControll = (addList) => {
@@ -108,6 +111,25 @@ const moimReducer = (state = initialState, action) => {
         moimDetail: action.payload,
         fetchingMoimDetail: false,
         error: null,
+      };
+    }
+
+  //moimSchedule 
+    case 'GETMOIM_SCHEDULE_START':{
+      return{...state, fetchingMoimSchedule: true};
+    }
+    case 'GETMOIM_SCHEDULE_ASYNC_REJECTED':{
+      return {...state, fetchingMoimSchedule: false, error: action.payload};
+    }
+    case 'GETMOIM_SCHEDULE_ASYNC_FUFILLED':{
+      // action.payload.moimSchedule.map((scheduleList) => state.moimSchedule.push(scheduleList));
+      // console.log('moimSchedule from moim reducer', state.moimSchedule);
+      return{
+        ...state,
+        moimSchedule:action.payload,
+        fetchingMoimSchedule: false,
+        error:null,
+        
       };
     }
 

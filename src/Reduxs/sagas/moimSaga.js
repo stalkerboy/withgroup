@@ -135,3 +135,48 @@ const getMoimDetail = async ({dataid, token}) => {
   //       return response.data;
   //     });
 };
+
+
+
+
+//schedule
+export function* watchGetMoimSchedule() {
+  // Take Last Action
+  yield takeLatest('GETMOIM_SCHEDULE', getMoimScheduleAsync);
+}
+
+function* getMoimScheduleAsync(action) {
+  yield put({type: 'GETMOIM_SCHEDULE_START'});
+  yield delay(500);
+
+  try {
+    const getMoimScheduleResponse = yield call(
+      getMoimSchedule.bind(this, action.data),
+    );
+
+    yield put({
+      type: 'GETMOIM_SCHEDULE_ASYNC_FULFILLED',
+      payload: getMoimScheduleResponse,
+    });
+  } catch (error) {
+    yield put({type: 'GETMOIM_SCHEDULE_ASYNC_REJECTED', payload: error});
+  }
+}
+
+
+const getMoimSchedule = async({dataid, token}) => {
+  console.log('schedule_dataid', dataid)
+  await axios
+    .get(`${API.MOIM_SCHEDULE}/${dataid}`,{headers: {Authorization: token}})
+    .then((res) => {
+      console.log('SCHEDULE res:            ', res);
+      data = {
+        moimSchedule: res.data.todolist.content
+      };
+      console.log('schedule todoList', data.moimSchedule);
+    })
+    .catch((error) => {
+      console.log('error' + error);
+    });
+  return data;
+}
