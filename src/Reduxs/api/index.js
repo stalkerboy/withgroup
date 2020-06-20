@@ -6,4 +6,5 @@ export const API = {
   MOIMLISTVIEW: `${backUrl}/rest/moimlistView`,
   MOIM_DETAIL: `${backUrl}/rest/moimlistView/moimdetailView`,
   GETMOIMIMAGE: `${backUrl}/getMoimImage`,
+  MOIM_SCHEDULE: `${backUrl}/rest/moimDetail/moimTodoList`,
 };

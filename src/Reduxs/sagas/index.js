@@ -4,7 +4,7 @@ import {all, fork} from 'redux-saga/effects';
 // Imports: Redux Sagas
 import {watchIncreaseCounter, watchDecreaseCounter} from './counterSaga';
 import {watchLogin} from './authSaga';
-import {watchGetMoimList, watchGetCA, watchGetMoimDetail} from './moimSaga';
+import {watchGetMoimList, watchGetCA, watchGetMoimDetail, watchGetMoimSchedule} from './moimSaga';
 // Redux Saga: Root Saga
 export function* rootSaga() {
   yield all([
@@ -14,5 +14,6 @@ export function* rootSaga() {
     fork(watchGetMoimList),
     fork(watchGetCA),
     fork(watchGetMoimDetail),
+    fork(watchGetMoimSchedule),
   ]);
 }
