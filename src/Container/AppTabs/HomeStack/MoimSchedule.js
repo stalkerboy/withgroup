@@ -29,42 +29,43 @@ export function MoimSchedule({route, navigation}) {
   const dispatch = useDispatch();
 
   //REDUCER를 이용한 방식
-  //const {moimSchedule} =useSelector((state) => state.moimReducer)
+  const {moimSchedule} =useSelector((state) => state.moimReducer)
 
-  // useEffect(() => {
-  //   getMoimSchedule();
-  //   console.log('moimSchedule',moimSchedule)
-  //   // console.log('route',route.params.dataid)
-  //   // const moimId=route.params.dataid;
-  //   // Axios.get(`http://49.50.173.236/rest/moimDetail/moimTodoList/${moimId}`)
-  //   // .then(res => {
-  //   //     console.log('shareplan res', res.data.todolist.content);
-  //   //     setTodoList(res.data.todolist.content)
-  //   // })
+  useEffect(() => {
+    getMoimSchedule();
+    console.log('moimSchedule111',moimSchedule)
+    console.log('sdfdsfsdfsdf')
+    // console.log('route',route.params.dataid)
+    // const moimId=route.params.dataid;
+    // Axios.get(`http://49.50.173.236/rest/moimDetail/moimTodoList/${moimId}`)
+    // .then(res => {
+    //     console.log('shareplan res', res.data.todolist.content);
+    //     setTodoList(res.data.todolist.content)
+    // })
     
-  // }, []);
+  }, []); 
 
-  // const getMoimSchedule = useCallback(() => {
-  //   dispatch({
-  //     type:'GETMOIM_SCHEDULE',
-  //     data:{dataid:route.params.dataid, token:route.params.token}
-  //   })
-  // },[])
+  const getMoimSchedule = useCallback(() => {
+    dispatch({
+      type:'GETMOIM_SCHEDULE',
+      data:{dataid:route.params.dataid, token:route.params.token}
+    })
+  },[])
 
 
   //기존 AXIOS 불러와서 쓰는방식
-  const [moimSchedule, setMoimSchedule] = useState(null)
-  useEffect(() => {
+  // const [moimSchedule, setMoimSchedule] = useState(null)
+  // useEffect(() => {
     
-    console.log('route',route.params.dataid)
-    const moimId=route.params.dataid;
-    Axios.get(`http://49.50.173.236/rest/moimDetail/moimTodoList/${moimId}`)
-    .then(res => {
-        console.log('shareplan res', res.data.todolist.content);
-        setMoimSchedule(res.data.todolist.content)
-    })
+  //   console.log('route',route.params.dataid)
+  //   const moimId=route.params.dataid;
+  //   Axios.get(`http://49.50.173.236/rest/moimDetail/moimTodoList/${moimId}`)
+  //   .then(res => {
+  //       console.log('shareplan res', res.data.todolist.content);
+  //       setMoimSchedule(res.data.todolist.content)
+  //   })
     
-  }, []);
+  // }, []);
 
 
 
