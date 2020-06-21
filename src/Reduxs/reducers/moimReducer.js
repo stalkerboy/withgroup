@@ -12,7 +12,7 @@ const initialState = {
   pageTotal: null,
   error: null,
   moimDetail: null,
-  moimSchedule:null,
+  moimSchedule:[],
 };
 
 const lengthControll = (addList) => {
@@ -121,12 +121,12 @@ const moimReducer = (state = initialState, action) => {
     case 'GETMOIM_SCHEDULE_ASYNC_REJECTED':{
       return {...state, fetchingMoimSchedule: false, error: action.payload};
     }
-    case 'GETMOIM_SCHEDULE_ASYNC_FUFILLED':{
-      // action.payload.moimSchedule.map((scheduleList) => state.moimSchedule.push(scheduleList));
-      // console.log('moimSchedule from moim reducer', state.moimSchedule);
+    case 'GETMOIM_SCHEDULE_ASYNC_FULFILLED':{
+     //  action.payload.moimSchedule.map((scheduleList) => state.moimSchedule.push(scheduleList));
+      
       return{
         ...state,
-        moimSchedule:action.payload,
+        moimSchedule:action.payload.moimSchedule,
         fetchingMoimSchedule: false,
         error:null,
         

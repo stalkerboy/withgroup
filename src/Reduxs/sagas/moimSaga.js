@@ -148,7 +148,8 @@ export function* watchGetMoimSchedule() {
 function* getMoimScheduleAsync(action) {
   yield put({type: 'GETMOIM_SCHEDULE_START'});
   yield delay(500);
-
+  console.log('action@@##@$')
+  console.log(action)
   try {
     const getMoimScheduleResponse = yield call(
       getMoimSchedule.bind(this, action.data),
