@@ -77,8 +77,8 @@ export const HomeStack = ({}) => {
         name="MoimMain"
         component={MoimMain}
         options={{
-          // headerTitle: props => <LogoTitle {...props}/>,
-          headerTitle: ()=> <HeaderR />,
+          headerTitle: props => <LogoTitle {...props}/>,
+          headerRight: ()=> <HeaderR />,
           headerLeft: ()=> <HeaderL />
         }}
       />

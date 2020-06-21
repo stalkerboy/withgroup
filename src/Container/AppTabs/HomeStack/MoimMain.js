@@ -24,6 +24,7 @@ export function MoimMain({navigation}) {
   
   useEffect(() => { 
     // MOIM_LIST
+    // console.log('firstLoading');
     getMoimList();
 
   }, []); 
@@ -35,24 +36,34 @@ export function MoimMain({navigation}) {
     }); 
   }, []);
 
-  const infiniteLoading = () => {
-    console.log('infiniteLoading');
-    if(nextPage <= pageTotal){
-      dispatch({
-        type: 'GETMOIM_LIST',
-        data: {commCode: commCode, page: nextPage, reloadable : true, searchable: false},
-      });
-    }
-
-  };
+  // const infiniteLoading = () => {
+  //   console.log('infiniteLoading');
+  //   console.log(nextPage);
+  //   console.log(pageTotal);
+  //   if(nextPage <= pageTotal){
+  //     dispatch({
+  //       type: 'GETMOIM_LIST',
+  //       data: {commCode: commCode, page: nextPage, reloadable : true, searchable: false},
+  //     });
+  //   } 
+  // };
 
   return (
     <>
       <View>
         <FlatList
-          // data={this.state.data}
           data={moimList}
-          onEndReached = {infiniteLoading}
+          onEndReached = {() => {
+            // console.log('infiniteLoading');
+            // console.log(nextPage);
+            // console.log(pageTotal);
+            if(nextPage <= pageTotal){
+              dispatch({
+                type: 'GETMOIM_LIST',
+                data: {commCode: commCode, page: nextPage, reloadable : true, searchable: false},
+              });
+            } 
+          }}
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() => {

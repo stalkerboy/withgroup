@@ -3,9 +3,6 @@ import { FastField } from "formik";
 // Initial State
 const initialState = {
   moimList: [],
-  CA1: [],
-  CA2: [],
-  CA3: [],
   commCode : '01',
   page: 1,
   nextPage: 1,
